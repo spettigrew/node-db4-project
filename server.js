@@ -2,6 +2,8 @@ const express = require('express');
 
 const recipeRouter = require('./recipes/recipe-router');
 
+require('dotenv').config()
+
 const server = express();
 
 server.use(express.json());
