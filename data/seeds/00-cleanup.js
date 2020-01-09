@@ -1,5 +1,5 @@
 
-exports.seed = async function(knex) {
+exports.seed = async (knex) => {
  await knex("recipes").truncate()
  await knex("ingredients").truncate()
  await knex("instructions").truncate()
