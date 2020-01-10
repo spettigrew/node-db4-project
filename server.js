@@ -1,4 +1,5 @@
 const express = require('express');
+const helmet = require("helmet");
 
 const recipeRouter = require('./recipes/recipe-router');
 
@@ -14,3 +15,10 @@ server.get("/", (req, res, next) => {
 })
 
 module.exports = server;
+
+// server.use((err, req, res, next) => {
+//     console.log(err)
+//     res.status(500).json({
+//         message: "Something is wrong, check again.",
+//     })
+// })
