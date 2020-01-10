@@ -1,8 +1,26 @@
-
+// JOIN Table
 exports.seed = async (knex) => {
-  await knex('table_name').insert([
-    { id: 1, colName: 'rowValue1' },
-    { id: 2, colName: 'rowValue2' },
-    { id: 3, colName: 'rowValue3' }
-  ]);
-};
+  await knex('shopping_list').insert([
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""},
+    { recipe_id: 1, ingredient_id: 1, quantity: 1, uom: ""}
+  ])
+}
