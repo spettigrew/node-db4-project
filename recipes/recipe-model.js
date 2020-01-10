@@ -4,7 +4,7 @@ module.exports = {
     find,
     findById,
     add,
-    update,
+    // update,
     remove
 }
 
@@ -26,11 +26,11 @@ async function add(recipeName) {
     .first()
 }
 
-function update(ingredients, id) {
-    return db("recipes")
-    .where({ id })
-    .update(ingredients)
-}
+// function update(ingredients, id) {
+//     return db("recipes")
+//     .where({ id })
+//     .update(ingredients)
+// }
 
 function remove(id) {
     return db("recipes")
