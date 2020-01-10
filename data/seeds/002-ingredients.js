@@ -9,14 +9,11 @@ exports.seed = async (knex) => {
     { id: 6, name: "Milk Chocolate" },
     { id: 7, name: "Raspberries" },
     { id: 8, name: "Unsalted Butter" },
-    { id: 9, name: "White Sugar" },
-    { id: 10, name: "Flour" },
+    { id: 9, name: "Fine White Sugar" },
+    { id: 10, name: "All-Purpose Flour" },
     { id: 11, name: "Baking Powder" },
     { id: 12, name: "Light Brown Sugar" },
     { id: 13, name: "Powdered Sugar" },
-    { id: 14, name: "Eggs" },
-    { id: 15, name: "Eggs" },
-    { id: 16, name: "Eggs" },
-    { id: 17, name: "Eggs" },
+    { id: 14, name: "Boiling Water" }
   ])
 }
