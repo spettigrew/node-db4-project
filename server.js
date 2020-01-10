@@ -16,15 +16,12 @@ server.use('/api/ingredients', ingredientRouter);
 server.use('/api/instructions', instructionRouter);
 server.use('/api/shopping-list', shoppingListRouter)
 
-server.get("/", (req, res, next) => {
-    res.send("<h2>I am your sanity check. Hello!</h2>")
+server.use((err, req, res, next) => {
+    console.log(err)
+    res.status(500).json({
+        message: "Something is wrong, check again.",
+    })
 })
 
 module.exports = server;
 
-// server.use((err, req, res, next) => {
-//     console.log(err)
-//     res.status(500).json({
-//         message: "Something is wrong, check again.",
-//     })
-// })
