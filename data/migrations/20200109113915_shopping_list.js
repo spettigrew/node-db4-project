@@ -7,12 +7,13 @@ exports.up = async function(knex) {
         table.string("uom")
         .notNullable()
         .references("id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE")
+        .inTable("ingredients")
+            .onDelete("CASCADE")
+            .onUpdate("CASCADE")
     })
 };
 
-exports.down = function(knex) {
+exports.down = async function(knex) {
     await knex.schema.dropTableIfExists("shopping_list")
 };
 
