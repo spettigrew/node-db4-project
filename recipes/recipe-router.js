@@ -1,57 +1,40 @@
 const express = require("express")
+const db = require("../data/db-config/")
 
-const Recipes = require("./recipe-model")
+const recipes = require("./recipe-model")
 
 const router =  express.Router()
 
-router.get("/", async (req, res, next) => {
+router.get("/api/recipes", async (req, res, next) => {
     try {
-        await
+        res.json(await db("recipes"))
     } 
     catch(err) {
         next(err)
     }
 })
 
-router.get("/", async (req, res, next) => {
+router.post("/api/recipes", async (req, res, next) => {
     try {
-        await
+        const [id] = await db("recipes")
+        .insert(req.body)
+
+        const recipe = await db("recipes")
+        .where({ id })
+        .first()
+
+        return res.status(201).json(recipe)
     }
     catch (err) {
         next(err)
     }
 })
 
-router.get("/", async (req, res, next) => {
+router.del("/api/recipes/:id", async (req, res, next) => {
     try {
-        await
-    }
-    catch (err) {
-        next(err)
-    }
-})
-
-router.post("/", async (req, res, next) => {
-    try {
-        await
-    }
-    catch (err) {
-        next(err)
-    }
-})
-
-router.put("/", async (req, res, next) => {
-    try {
-        await
-    }
-    catch (err) {
-        next(err)
-    }
-})
-
-router.del("/", async (req, res, next) => {
-    try {
-        await
+        const id = await db("recipes")
+        .where({ id: req.params.id })
+        .del()
     }
     catch (err) {
         next(err)
