@@ -5,18 +5,18 @@ exports.up = async function(knex) {
       table.string("name").notNullable()
   })
 
-  await knex.schema.createTable("shopping_list", (table) => {
-      table.integer("recipe_id")
-      .notNullable()
-      .references("id")
-      .inTable("recipes")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE")
-  })
+  // await knex.schema.createTable("shopping_list", (table) => {
+  //     table.integer("recipe_id")
+  //     .notNullable()
+  //     .references("id")
+  //     .inTable("recipes")
+  //     .onDelete("CASCADE")
+  //     .onUpdate("CASCADE")
+  // })
 };
 
-exports.down = function(knex) {     
-  await knex.schema.dropTableIfExists("shopping_list")
+exports.down = async function(knex) {     
+  // await knex.schema.dropTableIfExists("shopping_list")
   await knex.schema.dropTableIfExists("recipes")
 };
 
