@@ -1,13 +1,13 @@
 const express = require("express")
 const db = require("../data/db-config/")
 
-const ingredients = require("./ingredient-model")
+const Ingredient = require("./ingredient-model")
 
 const router = express.Router()
 
 router.get("/api/ingredients", async (req, res, next) => {
     try {
-        res.json(await db("ingredients"))
+        return res.json(await Ingredient.find())
     }
     catch (err) {
         next(err)
@@ -17,9 +17,7 @@ router.get("/api/ingredients", async (req, res, next) => {
 router.get("/api/ingredients/:id", async (req, res, next) => {
     try {
         const { id } = req.params
-        const ingredient = await db("ingredients")
-            .where({ id })
-            .first()
+        const ingredient = await Ingredient.findById(id)
 
         if (ingredient) {
             return res.json(ingredient)
@@ -34,12 +32,9 @@ router.get("/api/ingredients/:id", async (req, res, next) => {
 
 router.post("/api/ingredients", async (req, res, next) => {
     try {
-        const [id] = await db("ingredients")
-            .insert(req.body)
+        const [id] = await Ingredient.add(req.body)
 
-        const ingredient = await db("ingredients")
-            .where({ id })
-            .first()
+        const ingredient = await Ingredient.findById(id)
 
         return res.status(201).json(ingredient)
     }
@@ -68,9 +63,10 @@ router.put("/:id", async (req, res, next) => {
 
 router.del("/api/ingredients/:id", async (req, res, next) => {
     try {
-        const id = await db("ingredients")
+        const { id } = await db("ingredients")
             .where({ id: req.params.id })
             .del()
+        return res.status(200).json({ id: req.params.id })
     }
     catch (err) {
         next(err)

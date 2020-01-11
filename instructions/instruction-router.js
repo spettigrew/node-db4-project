@@ -1,13 +1,13 @@
 const express = require("express")
 const db = require("../data/db-config/")
 
-const instructions = require("./instruction-model")
+const Instructions = require("./instruction-model")
 
 const router = express.Router()
 
 router.get("/api/instructions", async (req, res, next) => {
     try {
-        res.json(await db("instructions"))
+       return res.json(await Instructions.find())
     }
     catch (err) {
         next(err)
@@ -17,29 +17,25 @@ router.get("/api/instructions", async (req, res, next) => {
 router.get("/api/instructions/:id", async (req, res, next) => {
     try {
         const { id } = req.params
-        const instruction = await db("instructions")
-            .where({ id })
-            .first()
+        const instruction = await Instructions.findById(id)
 
         if (instruction) {
             return res.json(instruction)
         } else {
             return res.status(404).json({ message: "Could not find instructions with this Id." })
         }
-    }
-    catch (err) {
-        next(err)
+
+        }
+        catch (err) {
+            next(err)
     }
 })
 
 router.post("/api/instructions", async (req, res, next) => {
     try {
-        const [id] = await db("instructions")
-            .insert(req.body)
+        const [id] = await Instructions.add(req.body)
 
-        const instruction = await db("instructions")
-            .where({ id })
-            .first()
+        const instruction = await Instructions.findById(id)
 
         return res.status(201).json(instruction)
     }
@@ -68,7 +64,7 @@ router.put("/:id", async (req, res, next) => {
 
 router.del("/api/instructions/:id", async (req, res, next) => {
     try {
-        const id = await db("instructions")
+        const { id }= await db("instructions")
             .where({ id: req.params.id })
             .del()
     }

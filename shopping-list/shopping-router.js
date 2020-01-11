@@ -1,13 +1,13 @@
 const express = require("express")
 const db = require("../data/db-config/")
 
-const shoppingList = require("./shopping-model")
+const ShoppingList = require("./shopping-model")
 
 const router = express.Router()
 
 router.get("/api/shoppingList", async (req, res, next) => {
     try {
-        res.json(await db("shoppingList"))
+        return res.json(await ShoppingList.find())
     }
     catch (err) {
         next(err)
@@ -17,9 +17,7 @@ router.get("/api/shoppingList", async (req, res, next) => {
 router.get("/api/shoppingList/:id", async (req, res, next) => {
     try {
         const { id } = req.params
-        const list = await db("shoppingList")
-            .where({ id })
-            .first()
+        const list = await ShoppingList.findById(id)
 
         if (list) {
             return res.json(list)
@@ -34,12 +32,9 @@ router.get("/api/shoppingList/:id", async (req, res, next) => {
 
 router.post("/api/shoppingList", async (req, res, next) => {
     try {
-        const [id] = await db("shoppingList")
-            .insert(req.body)
+        const [id] = await ShoppingList.add(req.body)
 
-        const list = await db("shoppingList")
-            .where({ id })
-            .first()
+        const list = await ShoppingList.findById(id)
 
         return res.status(201).json(list)
     }
@@ -67,7 +62,7 @@ router.put("/:id", async (req, res, next) => {
 
 router.del("/api/shoppingList/:id", async (req, res, next) => {
     try {
-        const id = await db("shoppingList")
+        const { id }= await db("shoppingList")
             .where({ id: req.params.id })
             .del()
     }

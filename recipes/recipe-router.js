@@ -1,13 +1,13 @@
 const express = require("express")
-const db = require("../data/db-config/")
+const db = require("../data/db-config")
 
-const recipes = require("./recipe-model")
+const Recipes = require("./recipe-model")
 
 const router =  express.Router()
 
 router.get("/api/recipes", async (req, res, next) => {
     try {
-        res.json(await db("recipes"))
+        return res.json(await Recipes.find())
     } 
     catch(err) {
         next(err)
@@ -17,29 +17,25 @@ router.get("/api/recipes", async (req, res, next) => {
 router.get("/api/recipes/:id" , async (req, res, next) => {
     try {
         const { id } = req.params
-        const recipe = await db("recipes")
-        .where({ id })
-        .first()
+        const recipe = await Recipes.findById(id)
 
         if (recipe) {
             return res.json(recipe)
         } else {
             return res.status(404).json({ message: "Could not find recipe with this Id." })
         }
-    }
-    catch(err) {
-        next(err)
+
+        }
+        catch(err) {
+            next(err)
     }
 })
 
 router.post("/api/recipes", async (req, res, next) => {
     try {
-        const [id] = await db("recipes")
-        .insert(req.body)
+        const [id] = await Recipes.add(req.body) //returns an array
 
-        const recipe = await db("recipes")
-        .where({ id })
-        .first()
+        const recipe = await Recipes.findById(id)
 
         return res.status(201).json(recipe)
     }
@@ -50,13 +46,13 @@ router.post("/api/recipes", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
     try {
-        const { id } = req.params
+        const { id } = req.params //returns an object
         const recipe = await recipeModel.update(id, req.body)
 
         if (recipe) {
             res.json(recipe)
         } else {
-            res.status(404).json({
+            return res.status(404).json({
                 message: "Could not find recipe with given ID",
             })
         }
@@ -67,9 +63,10 @@ router.put("/:id", async (req, res, next) => {
 
 router.del("/api/recipes/:id", async (req, res, next) => {
     try {
-        const id = await db("recipes")
+        const { id } = await db("recipes")
         .where({ id: req.params.id })
         .del()
+        return res.status(200).json({ id: req.params.id })
     }
     catch (err) {
         next(err)
