@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require("helmet");
 
 const recipeRouter = require('./recipes/recipe-router');
-const ingredientRouter = require('./ingredients/ingredient.router');
+const ingredientRouter = require('./ingredients/ingredient-router');
 const instructionRouter = require('./instructions/instruction-router');
 const shoppingListRouter = require('./shopping-list/shopping-router')
 
