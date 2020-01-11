@@ -5,7 +5,7 @@ const Recipes = require("./recipe-model")
 
 const router =  express.Router()
 
-router.get("/api/recipes", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
     try {
         return res.json(await Recipes.find())
     } 
@@ -14,7 +14,7 @@ router.get("/api/recipes", async (req, res, next) => {
     }
 })
 
-router.get("/api/recipes/:id" , async (req, res, next) => {
+router.get("/:id" , async (req, res, next) => {
     try {
         const { id } = req.params
         const recipe = await Recipes.findById(id)
@@ -31,7 +31,7 @@ router.get("/api/recipes/:id" , async (req, res, next) => {
     }
 })
 
-router.post("/api/recipes", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
     try {
         const [id] = await Recipes.add(req.body) //returns an array
 
@@ -61,7 +61,7 @@ router.put("/:id", async (req, res, next) => {
     }
 })
 
-router.del("/api/recipes/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
     try {
         const { id } = await db("recipes")
         .where({ id: req.params.id })
@@ -72,3 +72,5 @@ router.del("/api/recipes/:id", async (req, res, next) => {
         next(err)
     }
 })
+
+module.exports = router

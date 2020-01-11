@@ -5,7 +5,7 @@ const Ingredient = require("./ingredient-model")
 
 const router = express.Router()
 
-router.get("/api/ingredients", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
     try {
         return res.json(await Ingredient.find())
     }
@@ -14,7 +14,7 @@ router.get("/api/ingredients", async (req, res, next) => {
     }
 })
 
-router.get("/api/ingredients/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
     try {
         const { id } = req.params
         const ingredient = await Ingredient.findById(id)
@@ -30,7 +30,7 @@ router.get("/api/ingredients/:id", async (req, res, next) => {
     }
 })
 
-router.post("/api/ingredients", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
     try {
         const [id] = await Ingredient.add(req.body)
 
@@ -61,7 +61,7 @@ router.put("/:id", async (req, res, next) => {
     }
 })
 
-router.del("/api/ingredients/:id", async (req, res, next) => {
+router.del("/:id", async (req, res, next) => {
     try {
         const { id } = await db("ingredients")
             .where({ id: req.params.id })
@@ -72,3 +72,5 @@ router.del("/api/ingredients/:id", async (req, res, next) => {
         next(err)
     }
 })
+
+module.exports = router

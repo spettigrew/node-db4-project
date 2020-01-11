@@ -5,7 +5,7 @@ const ShoppingList = require("./shopping-model")
 
 const router = express.Router()
 
-router.get("/api/shoppingList", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
     try {
         return res.json(await ShoppingList.find())
     }
@@ -14,7 +14,7 @@ router.get("/api/shoppingList", async (req, res, next) => {
     }
 })
 
-router.get("/api/shoppingList/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
     try {
         const { id } = req.params
         const list = await ShoppingList.findById(id)
@@ -30,7 +30,7 @@ router.get("/api/shoppingList/:id", async (req, res, next) => {
     }
 })
 
-router.post("/api/shoppingList", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
     try {
         const [id] = await ShoppingList.add(req.body)
 
@@ -60,7 +60,7 @@ router.put("/:id", async (req, res, next) => {
     }
 })
 
-router.del("/api/shoppingList/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
     try {
         const { id }= await db("shoppingList")
             .where({ id: req.params.id })
@@ -70,3 +70,5 @@ router.del("/api/shoppingList/:id", async (req, res, next) => {
         next(err)
     }
 })
+
+module.exports = router

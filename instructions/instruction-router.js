@@ -5,7 +5,7 @@ const Instructions = require("./instruction-model")
 
 const router = express.Router()
 
-router.get("/api/instructions", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
     try {
        return res.json(await Instructions.find())
     }
@@ -14,7 +14,7 @@ router.get("/api/instructions", async (req, res, next) => {
     }
 })
 
-router.get("/api/instructions/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
     try {
         const { id } = req.params
         const instruction = await Instructions.findById(id)
@@ -31,7 +31,7 @@ router.get("/api/instructions/:id", async (req, res, next) => {
     }
 })
 
-router.post("/api/instructions", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
     try {
         const [id] = await Instructions.add(req.body)
 
@@ -62,7 +62,7 @@ router.put("/:id", async (req, res, next) => {
     }
 })
 
-router.del("/api/instructions/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
     try {
         const { id }= await db("instructions")
             .where({ id: req.params.id })
@@ -72,3 +72,5 @@ router.del("/api/instructions/:id", async (req, res, next) => {
         next(err)
     }
 })
+
+module.exports = router
