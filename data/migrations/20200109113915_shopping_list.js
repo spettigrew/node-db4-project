@@ -24,4 +24,4 @@ exports.down = async function(knex) {
     await knex.schema.dropTableIfExists("shopping_list")
 };
 
-// Do I need inTable("") for this join table?
+// Do I need inTable("") for this join table? - Yes!
