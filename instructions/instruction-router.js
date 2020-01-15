@@ -20,7 +20,7 @@ router.get("/:id", async (req, res, next) => {
         const instruction = await Instructions.findById(id)
 
         if (instruction) {
-            return res.json(instruction)
+            return res.status(201).json(instruction)
         } else {
             return res.status(404).json({ message: "Could not find instructions with this Id." })
         }

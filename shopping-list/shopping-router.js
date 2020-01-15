@@ -20,7 +20,7 @@ router.get("/:id", async (req, res, next) => {
         const list = await ShoppingList.findById(id)
 
         if (list) {
-            return res.json(list)
+            return res.status(201).json(list)
         } else {
             return res.status(404).json({ message: "Could not find list with this Id." })
         }

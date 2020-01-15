@@ -20,7 +20,7 @@ router.get("/:id" , async (req, res, next) => {
         const recipe = await Recipes.findById(id)
 
         if (recipe) {
-            return res.json(recipe)
+            return res.status(201).json(recipe)
         } else {
             return res.status(404).json({ message: "Could not find recipe with this Id." })
         }
